@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  font-size: 60px;
+  text-align: center;
+}
+
+.scoreboard{
+  display: flex;
+  flex-direction: row;
+  width: 70vw;
+  justify-content: space-between;
+  margin: 0 auto;
+  font-size: 30px;
+}
+
+.messageBoard {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 23px;
+}
+
+.buttons {
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 900px;
+  padding: 50px 0;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  width: 220px;
+  padding: 60px;
+  font-size: 25px;
+  font-weight: 600;
+  color: white;
+}
+
+.rock {
+  background-color: rgb(236, 16, 16);
+}
+
+.rock:hover {
+  background-color: rgb(172, 20, 20);
+}
+
+.paper {
+  background-color: rgb(12, 207, 12);
+}
+
+.paper:hover {
+  background-color: rgb(16, 119, 16);
+}
+
+.scissors {
+  background-color: dodgerblue;
+}
+
+.scissors:hover {
+  background-color: rgb(21, 100, 180);
+}
+
+.compMessage {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.resultMessage {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 25px;
+}

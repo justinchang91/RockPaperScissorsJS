@@ -2,49 +2,9 @@ let userPoints = 0;
 let computerPoints = 0;
 
 function computerPlay() {
-  let choices = ["Rock", "Paper", "Scissors"];
-  let computerChoice = choices[Math.floor(Math.random() * choices.length)];
-  return computerChoice[0].toUpperCase() + computerChoice.slice(1);
-}
-
-function playRound(userSelection, computerSelection) {
-  userSelection = userSelection.toLowerCase();
-  computerSelection = computerSelection.toLowerCase();
-
-  if (
-    (userSelection == "rock" && computerSelection == "scissors") ||
-    (userSelection == "paper" && computerSelection == "rock") ||
-    (userSelection == "scissors" && computerSelection == "paper")
-  ) {
-    console.log(
-      `User wins! ${
-        userSelection[0].toUpperCase() + userSelection.slice(1)
-      } beats ${
-        computerSelection[0].toUpperCase() + computerSelection.slice(1)
-      }!`
-    );
-    userPoints++;
-    return true;
-  } else if (
-    (computerSelection == "rock" && userSelection == "scissors") ||
-    (computerSelection == "paper" && userSelection == "rock") ||
-    (computerSelection == "scissors" && userSelection == "paper")
-  ) {
-    console.log(
-      `Computer wins! ${
-        computerSelection[0].toUpperCase() + computerSelection.slice(1)
-      } beats ${userSelection[0].toUpperCase() + userSelection.slice(1)}!`
-    );
-    computerPoints++;
-    return true;
-  } else {
-    console.log("Tie! Play this round again.");
-    return false;
-  }
-}
-
-function displayScore(userPoints, computerPoints) {
-  console.log(`User: ${userPoints}, Computer: ${computerPoints}`);
+  const choices = ["Rock", "Paper", "Scissors"];
+  const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+  return computerChoice;
 }
 
 function getNumRounds() {
@@ -67,29 +27,73 @@ function getNumRounds() {
   }
 }
 
-function game() {
-  console.log("Welcome to Rock Paper Scissors!");
-  let numRounds = getNumRounds();
-
-  let counter = 1;
-  while (userPoints < numRounds - 1 && computerPoints < numRounds - 1) {
-    console.log(`Round ${counter}:`);
-    userSelection = prompt("Please enter your choice: ");
-    computerSelection = computerPlay();
-    console.log(
-      `User chose ${userSelection[0].toUpperCase() + userSelection.slice(1)}`
-    );
-    console.log(`Computer chose ${computerSelection}`);
-    if (playRound(userSelection, computerSelection)) {
-      counter++;
-      displayScore(userPoints, computerPoints);
-    }
+function userWins(userSelection, computerSelection) {
+  if (
+    (userSelection == "Rock" && computerSelection == "Scissors") ||
+    (userSelection == "Paper" && computerSelection == "Rock") ||
+    (userSelection == "Scissors" && computerSelection == "Paper")
+  ) {
+    return true;
   }
-  if (userPoints > computerPoints) {
-    console.log("User wins!");
-  } else {
-    console.log("Computer wins!");
+  return false;
+}
+
+function computerWins(userSelection, computerSelection) {
+  if (
+    (computerSelection == "Rock" && userSelection == "Scissors") ||
+    (computerSelection == "Paper" && userSelection == "Rock") ||
+    (computerSelection == "Scissors" && userSelection == "Paper")
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function removeAllChildNotes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
   }
 }
 
-game();
+function playRound2(e) { // Add transition so that there is a slight delay when the results show up after you click the button
+  const resultArea = document.querySelector(".resultArea");
+  removeAllChildNotes(resultArea);
+
+  const userSelection = e.target.innerText;
+  const computerSelection = computerPlay();
+
+  // Update computer message
+  const compSelectMsg = document.createElement("div");
+  compSelectMsg.textContent = `Computer chose ${computerSelection}.`;
+  compSelectMsg.classList.add("compMessage");
+  resultArea.appendChild(compSelectMsg);
+
+  // Update result message
+  const resultMsg = document.createElement("div");
+  resultMsg.classList.add("resultMessage");
+
+  if (userWins(userSelection, computerSelection)) {
+    resultMsg.textContent = `User wins! ${userSelection} beats ${computerSelection}!`;
+    userPoints++;
+    // Update user score
+    const userScore = document.querySelector(".userScore");
+    userScore.textContent = `User: ${userPoints}`;
+  } 
+  else if (computerWins(userSelection, computerSelection)) {
+    resultMsg.textContent = `Computer wins! ${computerSelection} beats ${userSelection}!`;
+    computerPoints++;
+    // Update computer score
+    const compScore = document.querySelector(".compScore");
+    compScore.textContent = `Computer: ${computerPoints}`;
+  }
+  else {
+    resultMsg.textContent = "Tie! Play this round again.";
+  }
+
+  resultArea.appendChild(resultMsg); 
+}
+
+// Let's add the event listener to each button
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => button.addEventListener("click", playRound2));
+//game();
