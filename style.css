@@ -70,8 +70,21 @@ body {
   background-color: rgb(21, 100, 180);
 }
 
-.compMessage {
+.resultArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.roundMessage {
   margin-top: 40px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.compMessage {
+  margin-top: 20px;
   text-align: center;
   font-size: 25px;
 }
@@ -80,4 +93,16 @@ body {
   margin-top: 20px;
   text-align: center;
   font-size: 25px;
+}
+
+.winnerMessage {
+  margin-top: 60px;
+  text-align: center;
+  font-size: 35px;
+}
+
+.playAgain {
+  margin-top: 80px;
+  font-size: 25px;
+  padding: 10px;
 }
